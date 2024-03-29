@@ -24,9 +24,9 @@ struct ProductModel:  Identifiable , Codable {
 }
 
 enum Gender: String, Codable {
-    case men = "Men"
-    case women = "Women"
-    case unisex = "Unisex"
+    case Men = "Men"
+    case Women = "Women"
+    case Unisex = "Unisex"
 }
 
 enum Size: String, Codable {

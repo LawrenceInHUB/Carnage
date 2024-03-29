@@ -17,6 +17,7 @@
 		2B4DC2792BB75233009F62F5 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4DC2782BB75233009F62F5 /* ProductModel.swift */; };
 		2B4DC27C2BB752DE009F62F5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2B4DC27B2BB752DE009F62F5 /* Alamofire */; };
 		2B4DC27E2BB752DE009F62F5 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2B4DC27D2BB752DE009F62F5 /* AlamofireDynamic */; };
+		2B4DC2802BB760C2009F62F5 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4DC27F2BB760C2009F62F5 /* ProductViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		2B4DC2742BB67772009F62F5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2B4DC2762BB73B07009F62F5 /* AllProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsView.swift; sourceTree = "<group>"; };
 		2B4DC2782BB75233009F62F5 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		2B4DC27F2BB760C2009F62F5 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		2B4DC2712BB5BD06009F62F5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				2B4DC27F2BB760C2009F62F5 /* ProductViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B4DC2802BB760C2009F62F5 /* ProductViewModel.swift in Sources */,
 				2B4DC2642BB5BB39009F62F5 /* ContentView.swift in Sources */,
 				2B4DC2792BB75233009F62F5 /* ProductModel.swift in Sources */,
 				2B4DC2772BB73B07009F62F5 /* AllProductsView.swift in Sources */,
