@@ -8,69 +8,142 @@
 import SwiftUI
 
 struct AllProductsView: View {
-    @State var serachString : String = ""
+    @State var searchString = ""
+    @State var maxPrice = ""
+    @State var selectedSize = ""
+    @StateObject var productViewModel = ProductViewModel()
 
+    var filteredProducts: [ProductModel] {
+        if searchString.isEmpty && maxPrice.isEmpty && selectedSize.isEmpty {
+            return productViewModel.clothingItems
+        } else {
+            var filtered = productViewModel.clothingItems
+            
+            if !searchString.isEmpty {
+                filtered = filtered.filter {
+                    $0.title.localizedCaseInsensitiveContains(searchString)
+                }
+            }
+            
+            if let maxPriceValue = Int(maxPrice), maxPriceValue > 0 {
+                filtered = filtered.filter { $0.price <= maxPriceValue }
+            }
+            
+            if !selectedSize.isEmpty {
+                filtered = filtered.filter { $0.size.rawValue == selectedSize }
+            }
+            
+            return filtered
+        }
+    }
+    
     var body: some View {
-        ScrollView {
-            SearchView(searchString: $serachString)
-                .padding(.horizontal)
-            VStack(alignment: .leading, spacing: 20) {
-                ForEach(0..<dummyProducts.count, id: \.self) { index in
-                    if index % 2 == 0 {
-                        HStack(spacing: 20) {
-                            ProductItemView(product: dummyProducts[index])
-                            if index + 1 < dummyProducts.count {
-                                ProductItemView(product: dummyProducts[index + 1])
-                            } else {
-                                Spacer()
+            NavigationStack {
+                ScrollView {
+                    SearchView(searchString: $searchString)
+                        .padding(.horizontal)
+                    HStack{
+                        SizeFilter(selectedSize: $selectedSize)
+                        PriceFilter(maxPrice: $maxPrice)
+                        Spacer()
+                    }
+                    .padding(.leading)
+                    
+                    VStack(alignment: .leading, spacing: 20) {
+                        ForEach(0..<filteredProducts.count, id: \.self) { index in
+                            if index % 2 == 0 {
+                                HStack(spacing: 20) {
+                                    NavigationLink(destination: SingleProductView(product: filteredProducts[index])) {
+                                        ProductItemView(product: filteredProducts[index])
+                                    }
+                                    if index + 1 < filteredProducts.count {
+                                        NavigationLink(destination: SingleProductView(product: filteredProducts[index + 1])) {
+                                            ProductItemView(product: filteredProducts[index + 1])
+                                        }
+                                    } else {
+                                        Spacer()
+                                    }
+                                }
                             }
                         }
                     }
+                    .padding()
+                    .onAppear {
+                        productViewModel.fetchData()
+                    }
                 }
             }
-            .padding()
         }
     }
-}
-
-
 
 struct ProductItemView: View {
-    let product: Product1
+    let product: ProductModel
     
     var body: some View {
         VStack {
-            Image(product.imageName)
+            Image(product.image)
                 .resizable()
                 .frame(width: UIScreen.main.bounds.width / 2 - 30, height: UIScreen.main.bounds.width / 2 - 30)
                 .background(Color.red)
                 .cornerRadius(10)
-            Text(product.name)
+            Text(product.title)
                 .lineLimit(2)
                 .fontWeight(.semibold)
-            Text(product.price)
+            Text("Rs.\(product.price)")
                 .opacity(0.6)
         }
-        
     }
 }
 
-
-struct Product1: Identifiable {
-    let id = UUID()
-    let name: String
-    let price: String
-    let imageName: String
+struct SizeFilter: View {
+    @Binding var selectedSize: String
+    
+    var body: some View {
+        HStack(spacing: 10) {
+            ForEach(["S", "M", "L"], id: \.self) { size in
+                Button(action: {
+                    if selectedSize == size {
+                        selectedSize = ""
+                    } else {
+                        selectedSize = size
+                    }
+                }) {
+                    Text(size)
+                        .foregroundColor(selectedSize == size ? .white : .black)
+                        .padding(8)
+                        .frame(width: 36, height: 36)
+                        .background(selectedSize == size ? Color.black : Color.white)
+                        .cornerRadius(18)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 18)
+                                .stroke(Color.black, lineWidth: 1)
+                        )
+                }
+            }
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 10)
+        .padding(.top)
+    }
 }
 
-let dummyProducts = [
-    Product1(name: "Product 1", price: "Rs 100", imageName: "product1"),
-    Product1(name: "Product 2", price: "Rs 200", imageName: "product2"),
-    Product1(name: "Product 3", price: "Rs 300", imageName: "product3"),
-    Product1(name: "Product 4", price: "Rs 400", imageName: "product4"),
-    Product1(name: "Product 5", price: "Rs 500", imageName: "product5"),
-    Product1(name: "Product 6", price: "Rs 600", imageName: "product6"),
-]
+struct PriceFilter : View {
+    @Binding var maxPrice: String
+    
+    var body: some View {
+        HStack {
+            TextField("Max Price", text: $maxPrice)
+            Spacer()
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 10)
+        .background(Color.black.opacity(0.1))
+        .cornerRadius(10)
+        .padding(.top)
+        .frame(width: 120)
+    }
+}
+
 
 
 

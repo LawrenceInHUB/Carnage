@@ -18,6 +18,8 @@
 		2B4DC27C2BB752DE009F62F5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2B4DC27B2BB752DE009F62F5 /* Alamofire */; };
 		2B4DC27E2BB752DE009F62F5 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 2B4DC27D2BB752DE009F62F5 /* AlamofireDynamic */; };
 		2B4DC2802BB760C2009F62F5 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4DC27F2BB760C2009F62F5 /* ProductViewModel.swift */; };
+		2B4DC2822BB8428F009F62F5 /* MyCartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4DC2812BB8428F009F62F5 /* MyCartView.swift */; };
+		2B4DC2842BB842DA009F62F5 /* SingleProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4DC2832BB842DA009F62F5 /* SingleProductView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		2B4DC2762BB73B07009F62F5 /* AllProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsView.swift; sourceTree = "<group>"; };
 		2B4DC2782BB75233009F62F5 /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		2B4DC27F2BB760C2009F62F5 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
+		2B4DC2812BB8428F009F62F5 /* MyCartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCartView.swift; sourceTree = "<group>"; };
+		2B4DC2832BB842DA009F62F5 /* SingleProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleProductView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				2B4DC2722BB5BD46009F62F5 /* SplashView.swift */,
 				2B4DC2742BB67772009F62F5 /* HomeView.swift */,
 				2B4DC2762BB73B07009F62F5 /* AllProductsView.swift */,
+				2B4DC2812BB8428F009F62F5 /* MyCartView.swift */,
+				2B4DC2832BB842DA009F62F5 /* SingleProductView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -190,9 +196,11 @@
 				2B4DC2802BB760C2009F62F5 /* ProductViewModel.swift in Sources */,
 				2B4DC2642BB5BB39009F62F5 /* ContentView.swift in Sources */,
 				2B4DC2792BB75233009F62F5 /* ProductModel.swift in Sources */,
+				2B4DC2842BB842DA009F62F5 /* SingleProductView.swift in Sources */,
 				2B4DC2772BB73B07009F62F5 /* AllProductsView.swift in Sources */,
 				2B4DC2752BB67772009F62F5 /* HomeView.swift in Sources */,
 				2B4DC2622BB5BB39009F62F5 /* CarnageApp.swift in Sources */,
+				2B4DC2822BB8428F009F62F5 /* MyCartView.swift in Sources */,
 				2B4DC2732BB5BD46009F62F5 /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
