@@ -83,7 +83,8 @@ struct ProductItemView: View {
         VStack {
             Image(product.image)
                 .resizable()
-                .frame(width: UIScreen.main.bounds.width / 2 - 30, height: UIScreen.main.bounds.width / 2 - 30)
+                .scaledToFill()
+                .frame(width: UIScreen.main.bounds.width / 2 - 30, height: 200)
                 .background(Color.red)
                 .cornerRadius(10)
             Text(product.title)

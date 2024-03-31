@@ -10,15 +10,17 @@ import SwiftUI
 struct HomeView: View {
     @State var serachString : String = ""
     var body: some View {
-        ZStack{
+        NavigationStack {
             VStack{
                 HStack{
                     Image("LogoBlack")
                     Spacer()
-                    Image(systemName: "cart")
-                        .resizable()
-                        .frame(width: 30 ,height: 30)
-                       
+                    NavigationLink(destination: MyCartView()) {
+                        
+                        Image(systemName: "cart")
+                            .resizable()
+                            .frame(width: 30 ,height: 30)
+                    }
                 }
                 SearchView(searchString: $serachString)
                 AdView()
@@ -28,6 +30,7 @@ struct HomeView: View {
                
             }
             .padding()
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
@@ -53,16 +56,19 @@ struct AdView : View {
                 Spacer()
 
             }
-            HStack{
-                Text("Shop Now")
-                    .padding(.vertical, 7)
-                    .padding(.horizontal, 15)
-                    .background(Color.white)
-                    .foregroundColor(.black)
-                    .font(.system(size: 12))
-                    .fontWeight(.semibold)
-                    .cornerRadius(20)
-                    .padding(.top,10)
+            NavigationLink(destination: AllProductsView()) {
+
+                HStack{
+                    Text("Shop Now")
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 15)
+                        .background(Color.white)
+                        .foregroundColor(.black)
+                        .font(.system(size: 12))
+                        .fontWeight(.semibold)
+                        .cornerRadius(20)
+                        .padding(.top,10)
+                }
                 Spacer()
 
             }
@@ -87,12 +93,12 @@ struct TendView : View {
             }
             ScrollView(.horizontal ,  showsIndicators: false){
                 HStack{
-                    TendItemView()
-                    TendItemView()
-                    TendItemView()
-                    TendItemView()
-                    TendItemView()
-                    TendItemView()
+                    TendItemView(imageName: "1", productName: "Varsity Crop", price: "4500")
+                    TendItemView(imageName: "2", productName: "Classic Tee", price: "3000")
+                    TendItemView(imageName: "3", productName: "Runner Short", price: "2500")
+                    TendItemView(imageName: "4", productName: "Supersize Tee", price: "4750")
+                    TendItemView(imageName: "6", productName: "Gym Short", price: "2750")
+
                     Spacer()
                 }
             }
@@ -100,6 +106,7 @@ struct TendView : View {
         }
     }
 }
+
 
 struct NewArrivalView : View {
     var body: some View{
@@ -113,12 +120,12 @@ struct NewArrivalView : View {
             }
             ScrollView(.horizontal ,  showsIndicators: false){
                 HStack{
-                    TendItemView()
-                    TendItemView()
-                    TendItemView()
-                    TendItemView()
-                    TendItemView()
-                    TendItemView()
+                    TendItemView(imageName: "5", productName: "Gym Short", price: "2750")
+                    TendItemView(imageName: "7", productName: "Long Tee", price: "3200")
+                    TendItemView(imageName: "9", productName: "Fusion Crop", price: "3350")
+                    TendItemView(imageName: "10", productName: "Varsity Crop", price: "4500")
+                    TendItemView(imageName: "8", productName: "UNISEX Tee", price: "4250")
+                    TendItemView(imageName: "13", productName: "Fusion Crop", price: "3350")
                     Spacer()
                 }
             }
@@ -130,31 +137,33 @@ struct NewArrivalView : View {
 }
 
 struct TendItemView : View {
+    @State var imageName: String
+    @State var productName: String
+    @State var price: String
+
     var body: some View{
-        VStack{
-            VStack{
-                
-            }
-            .frame(width: 100, height: 130)
-            .background(Color.gray)
-            .cornerRadius(10)
-            VStack(alignment: .leading){
-                Text("Product Name deyg 3yg")
+        VStack {
+            Image(imageName)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 100)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+            VStack(alignment: .leading) {
+                Text(productName)
                     .lineLimit(2)
                     .fontWeight(.semibold)
-                Text("Rs 3170")
+                Text("Rs \(price)")
                     .opacity(0.6)
-                
             }
-
-
-
         }
         .frame(width: 100)
-
-
     }
 }
+
 
 struct SearchView: View {
     @Binding var searchString: String

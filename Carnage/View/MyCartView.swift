@@ -14,32 +14,41 @@ struct MyCartView: View {
         myCart.cartItems.reduce(0) { $0 + $1.price }
     }
     
-    var body: some View {
-        NavigationView {
-            VStack {
-                List {
-                    ForEach(myCart.cartItems) { item in
-                        VStack(alignment: .leading) {
-                            Text(item.title)
-                                .font(.headline)
-                            Text("Price: Rs. \(item.price)")
-                                .foregroundColor(.gray)
-                            Text("Size: \(item.size.rawValue)")
-                                .foregroundColor(.gray)
+ 
+        
+        var body: some View {
+            NavigationView {
+                VStack {
+                    List {
+                        ForEach(myCart.cartItems) { item in
+                            VStack(alignment: .leading) {
+                                Text(item.title)
+                                    .font(.headline)
+                                Text("Price: Rs. \(item.price)")
+                                    .foregroundColor(.gray)
+                                Text("Size: \(item.size.rawValue)")
+                                    .foregroundColor(.gray)
+                            }
                         }
                     }
+                    .navigationBarTitle("My Cart")
+                    
+                    Text("Total Price: Rs. \(totalPrice)")
+                        .font(.headline)
+                        .padding()
+                    
+                    NavigationLink(destination: CheckoutView(totalPrice: totalPrice)) {
+                        Text("Proceed to Checkout")
+                            .font(.headline)
+                            .padding()
+                    }
+                    
+                    Spacer()
                 }
-                .navigationBarTitle("My Cart")
-                
-                Text("Total Price: Rs. \(totalPrice)")
-                    .font(.headline)
-                    .padding()
-                
-                Spacer()
             }
         }
     }
-}
+
 
 class MyCart: ObservableObject {
     static let shared = MyCart()
@@ -50,6 +59,11 @@ class MyCart: ObservableObject {
     func add(product: ProductModel) {
         cartItems.append(product)
     }
+    
+    func clearCart() {
+            cartItems.removeAll()
+        }
+
 }
 
 #Preview{
