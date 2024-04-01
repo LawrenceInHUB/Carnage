@@ -32,7 +32,7 @@ struct CheckoutView: View {
                     Spacer()
                 }
                 .padding(.bottom)
-                Text("Dlivery Details")
+                Text("Delivery Details")
                 HStack{
                     TextField("First Name", text: $firstName)
                         .textFieldStyle(RoundedBorderTextFieldStyle())

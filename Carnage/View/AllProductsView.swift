@@ -90,8 +90,14 @@ struct ProductItemView: View {
             Text(product.title)
                 .lineLimit(2)
                 .fontWeight(.semibold)
+                .foregroundColor(.black)
+
             Text("Rs.\(product.price)")
                 .opacity(0.6)
+                .foregroundColor(.black)
+                .fontWeight(.medium)
+
+
         }
     }
 }
