@@ -9,18 +9,17 @@ import SwiftUI
 
 struct MyCartView: View {
     @StateObject private var myCart = MyCart.shared
-    
+
     var totalPrice: Int {
         myCart.cartItems.reduce(0) { $0 + $1.price }
     }
-    
- 
-        
-        var body: some View {
-            NavigationView {
-                VStack {
-                    List {
-                        ForEach(myCart.cartItems) { item in
+
+    var body: some View {
+        NavigationStack {
+            VStack {
+                List {
+                    ForEach(myCart.cartItems) { item in
+                        HStack {
                             VStack(alignment: .leading) {
                                 Text(item.title)
                                     .font(.headline)
@@ -29,42 +28,75 @@ struct MyCartView: View {
                                 Text("Size: \(item.size.rawValue)")
                                     .foregroundColor(.gray)
                             }
+                            Spacer()
+                            DeleteButton(action: {
+                                myCart.remove(product: item)
+                            })
                         }
                     }
-                    .navigationBarTitle("My Cart")
-                    
-                    Text("Total Price: Rs. \(totalPrice)")
-                        .font(.headline)
-                        .padding()
-                    
+                }
+                .navigationBarTitle("My Cart")
+
+                Text("Total Price: Rs. \(totalPrice)")
+                    .font(.headline)
+                    .padding()
+                VStack{
                     NavigationLink(destination: CheckoutView(totalPrice: totalPrice)) {
                         Text("Proceed to Checkout")
-                            .font(.headline)
-                            .padding()
+                            .frame(height: 40)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(.white)
+                            .background(Color.black)
+                            .cornerRadius(40)
+                            .padding(.horizontal,30)
+                            .font(.system(size: 16 , weight: .semibold))
                     }
-                    
-                    Spacer()
+                    .frame(height: 60)
                 }
+                .frame(maxWidth: .infinity)
+                .background(Color.white)
             }
         }
     }
+}
+
+struct DeleteButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: "trash")
+                .foregroundColor(.red)
+                .frame(width: 40, height: 40)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
+
 
 
 class MyCart: ObservableObject {
     static let shared = MyCart()
     private init() {}
-    
+
     @Published private(set) var cartItems: [ProductModel] = []
-    
+
     func add(product: ProductModel) {
         cartItems.append(product)
     }
-    
-    func clearCart() {
-            cartItems.removeAll()
-        }
 
+    func remove(product: ProductModel) {
+        if let index = cartItems.firstIndex(where: { $0.id == product.id }) {
+            cartItems.remove(at: index)
+        }
+    }
+
+    func clearCart() {
+        cartItems.removeAll()
+    }
 }
+
 
 #Preview{
     
