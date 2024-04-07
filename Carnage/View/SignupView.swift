@@ -1,5 +1,5 @@
 //
-//  LoginView.swift
+//  SignupView.swift
 //  Carnage
 //
 //  Created by Raveen Perera on 2024-04-07.
@@ -7,15 +7,19 @@
 
 import SwiftUI
 
-struct LoginView: View {
+struct SignupView: View {
     @State private var isNextIconTapped = false
-    @State private var isSignUpTapped = false
     @State private var password : String = ""
     @State private var email : String = ""
+    @State private var name : String = ""
+    @State private var telephone : String = ""
+    @State private var confimPassword : String = ""
+    @State private var isLoginTapped : Bool  =  false
+
 
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack{
                 
                 
@@ -27,12 +31,29 @@ struct LoginView: View {
                         .padding(.horizontal,100)
                     Group{
                         HStack {
+                            TextField("Full Name", text: $name)
+                            Spacer()
+                           
+                        }
+                        HStack {
+                            TextField("Telephone", text: $telephone)
+                                .keyboardType(.numberPad)
+                            Spacer()
+                            
+                           
+                        }
+                        HStack {
                             TextField("Email", text: $email)
                             Spacer()
                            
                         }
                         HStack {
                             SecureField("Password", text: $password)
+                            Spacer()
+                           
+                        }
+                        HStack {
+                            SecureField("Confirm Password", text: $confimPassword)
                             Spacer()
                            
                         }
@@ -45,34 +66,34 @@ struct LoginView: View {
                     .padding(.horizontal)
                    
                     HStack{
-                        Text("If you don't have an account")
+                        Text("If you have account already")
                             .foregroundColor(.white)
                             .font(.system(size: 15))
                             .opacity(0.6)
-                        Text("Sign up")
+                        Text("Login")
                             .foregroundColor(.white)
                             .font(.system(size: 15))
                             .fontWeight(.bold)
                             .onTapGesture {
-                                self.isSignUpTapped = true
+                                self.isLoginTapped = true
                             }
 
                     }
                     .padding(10)
 
-                    NavigationLink(destination: HomeView(), isActive: $isNextIconTapped) {
+                    NavigationLink(destination: LoginView(), isActive: $isNextIconTapped) {
                         EmptyView()
                     }
                     .hidden()
                     
-                    NavigationLink(destination: SignupView(), isActive: $isSignUpTapped) {
+                    
+                    NavigationLink(destination: LoginView(), isActive: $isLoginTapped) {
                         EmptyView()
                     }
                     .hidden()
-                    
                     Spacer()
                     HStack{
-                        Text("LOGIN")
+                        Text("SIGN UP")
                             .foregroundColor(.white)
                             .font(.system(size: 30))
                         Image("NextIcon")
@@ -92,12 +113,11 @@ struct LoginView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarBackButtonHidden(true)
-
     }
 }
 
 
 
 #Preview {
-    LoginView()
+    SignupView()
 }
