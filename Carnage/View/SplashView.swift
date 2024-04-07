@@ -20,7 +20,7 @@ struct SplashView: View {
                 
                 VStack{
                     Spacer()
-                    NavigationLink(destination: HomeView(), isActive: $isNextIconTapped) {
+                    NavigationLink(destination: LoginView(), isActive: $isNextIconTapped) {
                         EmptyView()
                     }
                     .hidden()

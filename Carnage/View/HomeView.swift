@@ -154,7 +154,7 @@ struct TendItemView : View {
                 )
             VStack(alignment: .leading) {
                 Text(productName)
-                    .lineLimit(2)
+                    .lineLimit(1)
                     .fontWeight(.semibold)
                 Text("Rs \(price)")
                     .opacity(0.6)
