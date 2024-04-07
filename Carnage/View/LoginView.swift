@@ -12,13 +12,12 @@ struct LoginView: View {
     @State private var isSignUpTapped = false
     @State private var password : String = ""
     @State private var email : String = ""
+    @State private var showAlert = false
+    @State private var alertMessage = ""
 
-    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack{
-                
-                
                 VStack{
                     Spacer()
                     Image("AppLogo")
@@ -29,12 +28,10 @@ struct LoginView: View {
                         HStack {
                             TextField("Email", text: $email)
                             Spacer()
-                           
                         }
                         HStack {
                             SecureField("Password", text: $password)
                             Spacer()
-                           
                         }
                     }
                     .padding(.horizontal)
@@ -43,6 +40,16 @@ struct LoginView: View {
                     .cornerRadius(10)
                     .padding(.top)
                     .padding(.horizontal)
+                    
+                    NavigationLink(destination: HomeView(), isActive: $isNextIconTapped) {
+                                            EmptyView()
+                                        }
+                                        .hidden()
+                                        
+                                        NavigationLink(destination: SignupView(), isActive: $isSignUpTapped) {
+                                            EmptyView()
+                                        }
+                                        .hidden()
                    
                     HStack{
                         Text("If you don't have an account")
@@ -56,20 +63,9 @@ struct LoginView: View {
                             .onTapGesture {
                                 self.isSignUpTapped = true
                             }
-
                     }
                     .padding(10)
 
-                    NavigationLink(destination: HomeView(), isActive: $isNextIconTapped) {
-                        EmptyView()
-                    }
-                    .hidden()
-                    
-                    NavigationLink(destination: SignupView(), isActive: $isSignUpTapped) {
-                        EmptyView()
-                    }
-                    .hidden()
-                    
                     Spacer()
                     HStack{
                         Text("LOGIN")
@@ -80,24 +76,29 @@ struct LoginView: View {
                             .scaledToFit()
                             .frame(height: 30)
                     }
-                        .onTapGesture {
+                    .onTapGesture {
+                        if self.email.lowercased() == "raveen@gmail.com" && self.password == "Raveen123" {
                             self.isNextIconTapped = true
+                        } else {
+                            self.showAlert = true
+                            self.alertMessage = "Invalid email or password"
                         }
-                    
-                   
+                    }
                 }
             }
             .frame(maxWidth: .infinity , maxHeight: .infinity)
             .background(Color.black)
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarBackButtonHidden(true)
-
     }
 }
 
-
-
-#Preview {
-    LoginView()
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+    }
 }
